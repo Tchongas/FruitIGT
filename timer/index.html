@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timer</title>
+    <style>
+        body {
+            /* Add these properties to make it draggable */
+            -webkit-app-region: drag;
+            user-select: none;
+            /* Your existing styles */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+        }
+        #timer {
+            font-size: 24px;
+        }
+        .running {
+            color: #4CAF50;
+        }
+        .stopped {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer" class="stopped">00:00.00</div>
+    <script src="renderer.js"></script>
+</body>
+</html>
