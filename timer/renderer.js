@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+const fs = require('fs');
 
 let timerInterval;
 let milliseconds = 0;
@@ -31,3 +32,47 @@ function updateDisplay() {
 function pad(number) {
     return number.toString().padStart(2, '0');
 }
+
+const timerContainer = document.getElementById('timer-container');
+
+timerContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    timerContainer.classList.add('drag-over');
+});
+
+timerContainer.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    timerContainer.classList.remove('drag-over');
+});
+
+timerContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    timerContainer.classList.remove('drag-over');
+
+    const file = e.dataTransfer.files[0];
+    if (file && file.name.endsWith('.css')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const css = event.target.result;
+            
+            // Remove any existing custom styles
+            const existingStyle = document.getElementById('custom-styles');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+
+            // Add new styles
+            const style = document.createElement('style');
+            style.id = 'custom-styles';
+            style.textContent = css;
+            document.head.appendChild(style);
+
+            // Save the CSS file
+            ipcRenderer.send('save-css', css);
+        };
+        reader.readAsText(file);
+    }
+});

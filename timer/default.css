@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Draggable window bar */
+#draggable-window-bar {
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    -webkit-app-region: drag;
+}
+/* Timer container */
+#timer-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timer {
+    font-size: 24px;
+    user-select: none;
+}
+
+.running {
+    color: #4CAF50;
+}
+
+.stopped {
+    color: #ffffff;
+}
+
+.drag-over {
+    border: 2px dashed #fff;
+    background-color: #535353
+}
